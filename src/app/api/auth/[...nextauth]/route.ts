@@ -4,33 +4,41 @@ import CredentialsProvider from "next-auth/providers/credentials";
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
-          name: "Credentials",
-          credentials: {
-            username: { label: "Username", type: "text", placeholder: "mjaristizabal" },
-            password: { label: "Password", type: "password" }
-          },
-          async authorize(credentials, req) {
-            const res = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
-                {
-                    method: "POST",
-                    body: JSON.stringify({
-                        username: credentials?.username,
-                        password: credentials?.password,
-                    }),
-                    headers: { "Content-Type": "application/json"},
+            name: "Credentials",
+            credentials: {
+                username: { label: "Username", type: "text", placeholder: "mjaristizabal" },
+                password: { label: "Password", type: "password" }
+            },
+            async authorize(credentials, req) {
+                const res = await fetch(
+                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/login`,
+                    {
+                        method: "POST",
+                        body: JSON.stringify({
+                            username: credentials?.username,
+                            password: credentials?.password,
+                        }),
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+
+                const user = await res.json();
+                if (user.error) {
+                    throw new Error(user.error);
                 }
-            );
-
-            const response = await res.json();
-            console.log(response.user);
-
-            if(response.detail) throw response;
-
-            return response.user;
-          },
+                return user;
+            },
         }),
-      ],
+    ],
+    callbacks: {
+        async jwt({ token, user }) {
+            return { ...token, ...user }
+        },
+        async session({ session, token }) {
+            session.user = token as any;
+            return session
+        }
+    }
 });
 
-export { handler as GET, handler as POST};
+export { handler as GET, handler as POST };
