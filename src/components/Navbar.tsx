@@ -15,6 +15,12 @@ const Navbar = () => {
         >
           Inicio
         </Link>
+        <Link
+          href="/tournaments"
+          className="btn btn-secondary btn-sm"
+        >
+          Prueba Fetch
+        </Link>
         {session?.user ? (
           <>
             <button
