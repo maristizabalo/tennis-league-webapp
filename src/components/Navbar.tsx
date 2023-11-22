@@ -13,16 +13,10 @@ const Navbar = () => {
           href="/"
           className="btn btn-primary btn-sm"
         >
-          Home
+          Inicio
         </Link>
         {session?.user ? (
           <>
-            <Link
-              href="/dashboard"
-              className="btn btn-primary btn-sm"
-            >
-              Dashboard
-            </Link>
             <button
               onClick={() => signOut()}
               className="btn btn-danger btn-sm"

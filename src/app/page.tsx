@@ -1,4 +1,3 @@
-import ButtonAuth from "@/components/ButtonAuth"
 
 const HomePage = () => {
   return (
@@ -6,7 +5,6 @@ const HomePage = () => {
       <h1>
         HomePage
       </h1>
-      <ButtonAuth />
     </div>
   )
 }
