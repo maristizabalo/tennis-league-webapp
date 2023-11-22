@@ -23,8 +23,8 @@ const handler = NextAuth({
                 );
 
                 const user = await res.json();
-                if (user.error) {
-                    throw new Error(user.error);
+                if (user.detail) {
+                    throw new Error(user.detail);
                 }
                 return user;
             },

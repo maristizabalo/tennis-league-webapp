@@ -2,9 +2,7 @@
 const HomePage = () => {
   return (
     <div>
-      <h1>
-        HomePage
-      </h1>
+      AQUI ENCONTRARAS TODA LA INFORMACION RELEVANTE PARA TU TORNEO DE TENIS
     </div>
   )
 }
